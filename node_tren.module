@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Node_tren_entity_presave.
+ */
+function node_tren_entity_presave(EntityInterface $node) {
+  if (method_exists($node, 'getType') && $node->getType() == 'tren') {
+    $time = strtotime($node->field_tren_data->value);
+    $title = format_date($time, 'long');
+    $node->title->setValue($title);
+  }
+}
